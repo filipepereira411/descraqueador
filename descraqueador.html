@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descraqueador Universal de Dispositivos v5.0</title>
+    <style>
+        body {
+            background-color: #050505;
+            color: #00ff66;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #0c0c0c;
+            border: 2px solid #00ff66;
+            border-radius: 6px;
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(0, 255, 102, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 12px;
+            background-color: #000;
+            border: 1px solid #00ff66;
+            color: #00ff66;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 15px;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+
+        input[readonly] {
+            color: #00b34a;
+            border-color: #006622;
+            cursor: not-allowed;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #00220a;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            background-color: #004415;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
+        }
+
+        #terminal {
+            background-color: #020202;
+            border: 1px solid #00ff66;
+            padding: 15px;
+            height: 220px;
+            overflow-y: auto;
+            margin-top: 20px;
+            display: none;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: #111;
+            border: 1px solid #00ff66;
+            height: 20px;
+            margin-top: 15px;
+            display: none;
+            position: relative;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #00ff66;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px #00ff66;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            display: none;
+            padding: 20px;
+            border: 2px dashed #ff3333;
+            color: #ff3333;
+            background-color: rgba(255, 51, 51, 0.05);
+            animation: blink 1.5s infinite;
+            line-height: 1.6;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Descraqueador Universal</h1>
+    
+    <div id="setup-form">
+        <div class="form-group">
+            <label for="device">Tipo de Dispositivo Detetado:</label>
+            <select id="device">
+                <option value="iPhone 15 Pro Max de Frango">iPhone (iOS)</option>
+                <option value="Android Trava-Zap">Android</option>
+                <option value="Microondas Inteligente">Smart TV / Eletrodoméstico</option>
+                <option value="PC da Nasa da marca Positivo">Computador (Windows/Mac/Linux)</option>
+                <option value="Calculadora com Wi-Fi">Outro / Dispositivo Desconhecido</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="target">O Seu IP Público Real (Alvo Localizado):</label>
+            <input type="text" id="target" value="A localizar IP real na rede..." readonly>
+        </div>
+
+        <button onclick="iniciarDescraqueio()">INICIAR BYPASS TOTAL</button>
+    </div>
+
+    <div id="terminal"></div>
+    
+    <div class="progress-bar-container" id="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    // Executa assim que a página carrega para obter o IP real
+    window.onload = function() {
+        fetch('https://ipify.org')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('target').value = data.ip;
+            })
+            .catch(() => {
+                // Caso a API falhe ou falte internet, usa um IP de fallback realista
+                document.getElementById('target').value = "192.168.1.254 (Modo Offline)";
+            });
+    };
+
+    function iniciarDescraqueio() {
+        const ipAlvo = document.getElementById('target').value;
+        
+        const logs = [
+            `Estabelecendo ligação segura com o IP: ${ipAlvo}...`,
+            "Iniciando protocolo de descraqueamento quântico simulado...",
+            "Injetando pacotes HTML modificados diretamente na motherboard...",
+            "A saltar a firewall do fornecedor de internet...",
+            "A aceder à base de dados encriptada via algoritmo Abravanel...",
+            "A descarregar 32GB de memória RAM virtual gratuita para acelerar o processo...",
+            "Fotografia de um gato enviada para contornar o reconhecimento facial...",
+            "A estabilizar a rota dos satélites para overclock remoto...",
+            "A desativar o modo de segurança internacional...",
+            "Sincronização concluída. A compilar os resultados finais..."
+        ];
+
+        document.getElementById('setup-form').style.display = 'none';
+        const terminal = document.getElementById('terminal');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        
+        terminal.style.display = 'block';
+        progressContainer.style.display = 'block';
+
+        let currentLog = 0;
+        let progress = 0;
+
+        // Ciclo de logs do terminal de hacker falso
+        const logInterval = setInterval(() => {
+            if (currentLog < logs.length) {
+                terminal.innerHTML += `[SUCCESS] ${logs[currentLog]}<br>`;
+                terminal.scrollTop = terminal.scrollHeight;
+                currentLog++;
+            }
+        }, 700);
+
+        // Ciclo da barra de progresso
+        const progressInterval = setInterval(() => {
+            if (progress < 100) {
+                progress += 2;
+                progressBar.style.width = progress + '%';
+            } else {
+                clearInterval(logInterval);
+                clearInterval(progressInterval);
+                mostrarResultado(ipAlvo);
+            }
+        }, 140);
+    }
+
+    function mostrarResultado(ip) {
+        const result = document.getElementById('result');
+        const deviceSelected = document.getElementById('device').value;
+        
+        result.style.display = 'block';
+        result.innerHTML = `⚠️ ALERTA DE SEGURANÇA CRÍTICO ⚠️<br><br>
+        O dispositivo "${deviceSelected}" com o IP <strong>${ip}</strong> bloqueou o nosso ataque!<br><br>
+        O sistema de defesa deles é demasiado avançado. Para concluir o descraqueamento, terá de pagar um café ao programador ou reiniciar o seu router de 15 em 15 segundos para enganar o FBI.`;
+    }
+</script>
+
+</body>
+</html>
