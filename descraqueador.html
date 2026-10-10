@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descraqueador Universal de Dispositivos v4.2</title>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #111;
+            border: 2px solid #00ff00;
+            border-radius: 5px;
+            padding: 30px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            background-color: #000;
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+            box-sizing: border-box;
+            border-radius: 3px;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #003300;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #005500;
+        }
+
+        #terminal {
+            background-color: #000;
+            border: 1px solid #00ff00;
+            padding: 15px;
+            height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+            display: none;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            background-color: #222;
+            border: 1px solid #00ff00;
+            height: 20px;
+            margin-top: 15px;
+            display: none;
+            position: relative;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background-color: #00ff00;
+            transition: width 0.1s linear;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            display: none;
+            padding: 15px;
+            border: 2px dashed #ff0000;
+            color: #ff3333;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Descraqueador Universal</h1>
+    
+    <div id="setup-form">
+        <div class="form-group">
+            <label for="device">Tipo de Dispositivo:</label>
+            <select id="device">
+                <option value="iPhone 15 Pro Max de Frango">iPhone (iOS)</option>
+                <option value="Android Trava-Zap">Android</option>
+                <option value="Microondas com Android">Smart TV / Eletrodoméstico</option>
+                <option value="PC da Nasa (Positivo)">Computador (Windows/Mac/Linux)</option>
+                <option value="Calculadora Científica Clandestina">Outro / Dispositivo Desconhecido</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="target">Nome do Alvo / IP Falso:</label>
+            <input type="text" id="target" placeholder="Ex: Celular do Primo ou 192.168.1.999" value="192.168.1.254">
+        </div>
+
+        <button onclick="iniciarDescraqueio()">INICIAR DESBLOQUEIO TOTAL</button>
+    </div>
+
+    <div id="terminal"></div>
+    
+    <div class="progress-bar-container" id="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    const logs = [
+        "Iniciando protocolo de descraqueamento quântico...",
+        "Injetando código HTML modificado no processador...",
+        "Burlando o firewall da NASA através do microondas...",
+        "Driblando a segurança biométrica com uma foto de um gato...",
+        "Descriptografando banco de dados usando o algoritmo Abravanel...",
+        "Limpando o histórico do navegador para garantir segurança...",
+        "Fazendo o download de mais memória RAM virtual (100% grátis)...",
+        "Overclocking na bateria do dispositivo via satélite...",
+        "Quase lá... Desativando o modo de segurança do FBI...",
+        "Finalizando bypass universal..."
+    ];
+
+    function iniciarDescraqueio() {
+        document.getElementById('setup-form').style.display = 'none';
+        const terminal = document.getElementById('terminal');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        
+        terminal.style.display = 'block';
+        progressContainer.style.display = 'block';
+
+        let currentLog = 0;
+        let progress = 0;
+
+        // Ciclo de logs do terminal falso
+        const logInterval = setInterval(() => {
+            if (currentLog < logs.length) {
+                terminal.innerHTML += `[INFO] ${logs[currentLog]}<br>`;
+                terminal.scrollTop = terminal.scrollHeight;
+                currentLog++;
+            }
+        }, 600);
+
+        // Ciclo da barra de progresso
+        const progressInterval = setInterval(() => {
+            if (progress < 100) {
+                progress += 2;
+                progressBar.style.width = progress + '%';
+            } else {
+                clearInterval(logInterval);
+                clearInterval(progressInterval);
+                mostrarResultado();
+            }
+        }, 120);
+    }
+
+    function mostrarResultado() {
+        const result = document.getElementById('result');
+        const deviceSelected = document.getElementById('device').value;
+        
+        result.style.display = 'block';
+        result.innerHTML = `⚠️ ERRO CRÍTICO ⚠️<br><br>
+        O dispositivo "${deviceSelected}" é demasiado potente!<br>
+        Para concluir o descraqueamento, por favor, pague um café ao programador ou reinicie o modem da sua internet de 20 em 20 segundos.`;
+    }
+</script>
+
+</body>
+</html>
