@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descraqueador Universal de Dispositivos v4.2</title>
+    <title>Descraqueador Universal de Dispositivos v5.0</title>
     <style>
         body {
-            background-color: #0a0a0a;
-            color: #00ff00;
+            background-color: #050505;
+            color: #00ff66;
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             flex-direction: column;
@@ -20,13 +20,13 @@
         }
 
         .container {
-            background-color: #111;
-            border: 2px solid #00ff00;
-            border-radius: 5px;
+            background-color: #0c0c0c;
+            border: 2px solid #00ff66;
+            border-radius: 6px;
             padding: 30px;
             width: 100%;
             max-width: 600px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.15);
         }
 
         h1 {
@@ -35,6 +35,7 @@
             margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(0, 255, 102, 0.5);
         }
 
         .form-group {
@@ -43,78 +44,93 @@
 
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             font-weight: bold;
+            font-size: 14px;
         }
 
         select, input, button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background-color: #000;
-            border: 1px solid #00ff00;
-            color: #00ff00;
+            border: 1px solid #00ff66;
+            color: #00ff66;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 16px;
+            font-size: 15px;
             box-sizing: border-box;
-            border-radius: 3px;
+            border-radius: 4px;
+        }
+
+        input[readonly] {
+            color: #00b34a;
+            border-color: #006622;
+            cursor: not-allowed;
         }
 
         button {
             cursor: pointer;
-            background-color: #003300;
+            background-color: #00220a;
             font-weight: bold;
-            margin-top: 10px;
-            transition: background 0.3s;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         button:hover {
-            background-color: #005500;
+            background-color: #004415;
+            box-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
         }
 
         #terminal {
-            background-color: #000;
-            border: 1px solid #00ff00;
+            background-color: #020202;
+            border: 1px solid #00ff66;
             padding: 15px;
-            height: 200px;
+            height: 220px;
             overflow-y: auto;
             margin-top: 20px;
             display: none;
-            font-size: 14px;
-            line-height: 1.4;
+            font-size: 13px;
+            line-height: 1.5;
         }
 
         .progress-bar-container {
             width: 100%;
-            background-color: #222;
-            border: 1px solid #00ff00;
+            background-color: #111;
+            border: 1px solid #00ff66;
             height: 20px;
             margin-top: 15px;
             display: none;
             position: relative;
+            border-radius: 3px;
+            overflow: hidden;
         }
 
         .progress-bar {
             width: 0%;
             height: 100%;
-            background-color: #00ff00;
+            background-color: #00ff66;
             transition: width 0.1s linear;
+            box-shadow: 0 0 10px #00ff66;
         }
 
         #result {
             text-align: center;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
             margin-top: 20px;
             display: none;
-            padding: 15px;
-            border: 2px dashed #ff0000;
+            padding: 20px;
+            border: 2px dashed #ff3333;
             color: #ff3333;
-            animation: blink 1s infinite;
+            background-color: rgba(255, 51, 51, 0.05);
+            animation: blink 1.5s infinite;
+            line-height: 1.6;
         }
 
         @keyframes blink {
             0% { opacity: 1; }
-            50% { opacity: 0.4; }
+            50% { opacity: 0.6; }
             100% { opacity: 1; }
         }
     </style>
@@ -126,22 +142,22 @@
     
     <div id="setup-form">
         <div class="form-group">
-            <label for="device">Tipo de Dispositivo:</label>
+            <label for="device">Tipo de Dispositivo Detetado:</label>
             <select id="device">
                 <option value="iPhone 15 Pro Max de Frango">iPhone (iOS)</option>
                 <option value="Android Trava-Zap">Android</option>
-                <option value="Microondas com Android">Smart TV / Eletrodoméstico</option>
-                <option value="PC da Nasa (Positivo)">Computador (Windows/Mac/Linux)</option>
-                <option value="Calculadora Científica Clandestina">Outro / Dispositivo Desconhecido</option>
+                <option value="Microondas Inteligente">Smart TV / Eletrodoméstico</option>
+                <option value="PC da Nasa da marca Positivo">Computador (Windows/Mac/Linux)</option>
+                <option value="Calculadora com Wi-Fi">Outro / Dispositivo Desconhecido</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="target">Nome do Alvo / IP Falso:</label>
-            <input type="text" id="target" placeholder="Ex: Celular do Primo ou 192.168.1.999" value="192.168.1.254">
+            <label for="target">O Seu IP Público Real (Alvo Localizado):</label>
+            <input type="text" id="target" value="A localizar IP real na rede..." readonly>
         </div>
 
-        <button onclick="iniciarDescraqueio()">INICIAR DESBLOQUEIO TOTAL</button>
+        <button onclick="iniciarDescraqueio()">INICIAR BYPASS TOTAL</button>
     </div>
 
     <div id="terminal"></div>
@@ -154,20 +170,35 @@
 </div>
 
 <script>
-    const logs = [
-        "Iniciando protocolo de descraqueamento quântico...",
-        "Injetando código HTML modificado no processador...",
-        "Burlando o firewall da NASA através do microondas...",
-        "Driblando a segurança biométrica com uma foto de um gato...",
-        "Descriptografando banco de dados usando o algoritmo Abravanel...",
-        "Limpando o histórico do navegador para garantir segurança...",
-        "Fazendo o download de mais memória RAM virtual (100% grátis)...",
-        "Overclocking na bateria do dispositivo via satélite...",
-        "Quase lá... Desativando o modo de segurança do FBI...",
-        "Finalizando bypass universal..."
-    ];
+    // Executa assim que a página carrega para obter o IP real
+    window.onload = function() {
+        fetch('https://ipify.org')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('target').value = data.ip;
+            })
+            .catch(() => {
+                // Caso a API falhe ou falte internet, usa um IP de fallback realista
+                document.getElementById('target').value = "192.168.1.254 (Modo Offline)";
+            });
+    };
 
     function iniciarDescraqueio() {
+        const ipAlvo = document.getElementById('target').value;
+        
+        const logs = [
+            `Estabelecendo ligação segura com o IP: ${ipAlvo}...`,
+            "Iniciando protocolo de descraqueamento quântico simulado...",
+            "Injetando pacotes HTML modificados diretamente na motherboard...",
+            "A saltar a firewall do fornecedor de internet...",
+            "A aceder à base de dados encriptada via algoritmo Abravanel...",
+            "A descarregar 32GB de memória RAM virtual gratuita para acelerar o processo...",
+            "Fotografia de um gato enviada para contornar o reconhecimento facial...",
+            "A estabilizar a rota dos satélites para overclock remoto...",
+            "A desativar o modo de segurança internacional...",
+            "Sincronização concluída. A compilar os resultados finais..."
+        ];
+
         document.getElementById('setup-form').style.display = 'none';
         const terminal = document.getElementById('terminal');
         const progressContainer = document.getElementById('progress-container');
@@ -179,14 +210,14 @@
         let currentLog = 0;
         let progress = 0;
 
-        // Ciclo de logs do terminal falso
+        // Ciclo de logs do terminal de hacker falso
         const logInterval = setInterval(() => {
             if (currentLog < logs.length) {
-                terminal.innerHTML += `[INFO] ${logs[currentLog]}<br>`;
+                terminal.innerHTML += `[SUCCESS] ${logs[currentLog]}<br>`;
                 terminal.scrollTop = terminal.scrollHeight;
                 currentLog++;
             }
-        }, 600);
+        }, 700);
 
         // Ciclo da barra de progresso
         const progressInterval = setInterval(() => {
@@ -196,19 +227,19 @@
             } else {
                 clearInterval(logInterval);
                 clearInterval(progressInterval);
-                mostrarResultado();
+                mostrarResultado(ipAlvo);
             }
-        }, 120);
+        }, 140);
     }
 
-    function mostrarResultado() {
+    function mostrarResultado(ip) {
         const result = document.getElementById('result');
         const deviceSelected = document.getElementById('device').value;
         
         result.style.display = 'block';
-        result.innerHTML = `⚠️ ERRO CRÍTICO ⚠️<br><br>
-        O dispositivo "${deviceSelected}" é demasiado potente!<br>
-        Para concluir o descraqueamento, por favor, pague um café ao programador ou reinicie o modem da sua internet de 20 em 20 segundos.`;
+        result.innerHTML = `⚠️ ALERTA DE SEGURANÇA CRÍTICO ⚠️<br><br>
+        O dispositivo "${deviceSelected}" com o IP <strong>${ip}</strong> bloqueou o nosso ataque!<br><br>
+        O sistema de defesa deles é demasiado avançado. Para concluir o descraqueamento, terá de pagar um café ao programador ou reiniciar o seu router de 15 em 15 segundos para enganar o FBI.`;
     }
 </script>
 
