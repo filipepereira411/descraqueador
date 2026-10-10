@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descraqueador Universal de Dispositivos v5.0</title>
+    <title>Descraqueador Universal de Dispositivos v5.2</title>
     <style>
         body {
             background-color: #050505;
@@ -170,7 +170,7 @@
 </div>
 
 <script>
-    // Executa assim que a página carrega para obter o IP real
+    // Executa assim que a página carrega para obter o IP com redundância secundária
     window.onload = function() {
         fetch('https://ipify.org')
             .then(response => response.json())
@@ -178,8 +178,16 @@
                 document.getElementById('target').value = data.ip;
             })
             .catch(() => {
-                // Caso a API falhe ou falte internet, usa um IP de fallback realista
-                document.getElementById('target').value = "192.168.1.254 (Modo Offline)";
+                // Servidor de reserva caso o ipify falhe ou seja bloqueado
+                fetch('https://ipinfo.io')
+                    .then(res => res.json())
+                    .then(data => {
+                        document.getElementById('target').value = data.ip;
+                    })
+                    .catch(() => {
+                        // Fallback final apenas em caso de falha total de rede
+                        document.getElementById('target').value = "127.0.0.1 (Sem Internet)";
+                    });
             });
     };
 
